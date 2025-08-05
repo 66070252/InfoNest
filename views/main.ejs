@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>รายการ</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    body, .container {
+      height: 100vh; /* ให้เต็มความสูง viewport */
+      width: 100vw;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #000;
+    }
+
+    .header {
+      display: flex;
+      justify-content: flex-end;
+      padding: 10px;
+      border-bottom: 1px solid #000;
+    }
+
+    .add-btn {
+      padding: 5px 10px;
+      border: 1px solid #000;
+      background-color: white;
+      cursor: pointer;
+    }
+
+    .content {
+  flex-grow: 1;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* จัดหัวข้อและ ul ให้อยู่กลางแนวนอน */
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  width: 100%; /* ให้ ul กินเต็มความกว้าง content */
+  max-width: 600px; /* กำหนด max-width เพื่อไม่ให้กว้างเกินไป */
+}
+
+.item {
+  border: 1px solid #666;
+  border-radius: 6px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <form action="/add" method="GET">
+        <button type="submit" class="add-btn">Add</button>
+      </form>
+    </div>
+    <div class="content">
+  <h1 class="title">รายการ</h1>
+  <ul>
+    <% items.forEach(function(item) { %>
+      <li class="item"><%= item.name %></li>
+    <% }); %>
+  </ul>
+    </div>
+  </div>
+</body>
+</html>
