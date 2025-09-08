@@ -1,27 +1,28 @@
-const express = require('express');
-const path = require('path');
+import dotenv from 'dotenv'
+import express from 'express'
+import mongoose from 'mongoose'
+import swaggerUi from 'swagger-ui-express'
+import swaggerSpec from './services/swagger.js'
 
-const app = express();
-const port = 3000;
+const app = express()
+const port = 3000
 
-// view engine เป็น EJS
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+dotenv.config()
 
+const dbUrl = process.env.DB_URL
+const connect = async () => {
+   try {
+      await mongoose.connect(dbUrl)  
+      console.log('Connected to MongoDB successfully')
+   } catch (error) {
+      console.error('Error connecting to MongoDB:', error)
+   }
+}
+await connect()
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.get('/', (req, res) => {
-  const items = [
-    { name: 'ซื้อของในซูเปอร์' },
-    { name: 'ออกกำลังกาย' },
-    { name: 'อ่านหนังสือ' },
-    { name: 'เขียนโปรเจกต์เว็บ' }
-  ];
-
-  res.render('main', { items });
-});
-
-// server
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
+  console.log(`Example app listening on port ${port}`)
+  console.log(`📚 API documentation is available at http://localhost:${port}/api-docs`);
+})
