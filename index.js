@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express'
 import mongoose from 'mongoose'
+import router from './routes/router.js'
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './services/swagger.js'
 
@@ -19,6 +20,9 @@ const connect = async () => {
    }
 }
 await connect()
+
+app.use(express.json())
+app.use("/api", router)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

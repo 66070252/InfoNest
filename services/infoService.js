@@ -7,10 +7,13 @@ const infoService = {
   getInfoById: async (id) => {
     return await Info.findById(id); 
   },
-  create: async(title, info, image, likes, dislikes) => {
+  create: async(title, info, images, likes, dislikes) => {
     return await Info.create({
-      title, info, image, likes, dislikes
+      title, info, images, likes, dislikes
     })
+  },
+  delete: async (id) => {
+    return await Info.findByIdAndDelete(id);
   }
 }
 
