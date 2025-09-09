@@ -21,8 +21,8 @@ const infoController = {
   },
   create: async (req, res) => {
     try{
-      const { title, info, images, likes, dislikes } = req.body
-      const Info = await infoService.create(title, info, images, likes, dislikes)
+      const { title, info, images} = req.body
+      const Info = await infoService.create(title, info, images)
       res.status(201).json(Info)
     } catch(err){
       res.status(500).json(err)
@@ -38,6 +38,19 @@ const infoController = {
       res.status(200).json({ message: "Info deleted successfully" })
     } catch (err) {
       res.status(500).json(err)
+    }
+  },
+  update: async (req, res) => {
+    try {
+      const id = req.params.id;
+      const updateData = req.body;
+      const updatedInfo = await infoService.update(id, updateData);
+      if (!updatedInfo) {
+        return res.status(404).json({ message: "Info not found" });
+      }
+      res.status(200).json({ message: "Info updated successfully" });
+    } catch (err) {
+      res.status(500).json(err);
     }
   }
 }

@@ -14,6 +14,9 @@ const infoService = {
   },
   delete: async (id) => {
     return await Info.findByIdAndDelete(id);
+  },
+  update: async (id, updateData) => {
+    return await Info.findByIdAndUpdate(id, updateData, { new: true });
   }
 }
 
