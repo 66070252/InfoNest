@@ -8,9 +8,9 @@ const useUserRoute = async (router) => {
  *  description: Info management endpoints
  */
 
-/**
+  /**
  * @swagger
- * /api/products:
+ * /api/info:
  *  get:
  *      summary: Get all info
  *      tags: [Info]
@@ -25,9 +25,96 @@ const useUserRoute = async (router) => {
  *                              $ref: '#/components/schemas/Info'
  */
   router.get('/info', infoController.getAllInfo)
+
+  /**
+ * @swagger
+ * /api/info/{id}:
+ *   get:
+ *     summary: Get a info by ID
+ *     tags: [Info]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the info
+ *     responses:
+ *       200:
+ *         description: A product detail
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Info'
+ *       404:
+ *         description: Info not found
+ */
   router.get('/info/:id', infoController.getInfoById)
+
+  /**
+ * @swagger
+ * /api/info/{id}:
+ *   put:
+ *     summary: Update a info
+ *     tags: [Info]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The product ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/InfoInput'
+ *     responses:
+ *       200:
+ *         description: Info updated successfully
+ *       404:
+ *         description: Info not found
+ */
   router.put('/info/:id', infoController.update)
+
+  /**
+ * @swagger
+ * /api/info:
+ *   post:
+ *     summary: Create a new info
+ *     tags: [Info]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/InfoInput'
+ *     responses:
+ *       201:
+ *         description: Info created successfully
+ */
   router.post('/info', infoController.create)
+
+  /**
+ * @swagger
+ * /api/info/{id}:
+ *   delete:
+ *     summary: delete a info
+ *     tags: [Info]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the product to delete
+ *     responses:
+ *       200:
+ *         description: Info deleted successfully
+ *       404:
+ *         description: Info not found
+ */
   router.delete('/info/:id', infoController.delete)
 
 }
