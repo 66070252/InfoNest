@@ -14,16 +14,21 @@ const infoController = {
       const id = req.params.id
       const info = await infoService.getInfoById(id)
       res.status(200).json(info)
+      if (!info) {
+        return res.status(404).json({ message: "Info not found" })
+      }
     } catch(err) {
       res.status(500).json(err)
     }
-    
   },
   create: async (req, res) => {
     try{
       const { title, info, images} = req.body
       const Info = await infoService.create(title, info, images)
       res.status(201).json(Info)
+      if (!title || !info) {
+        return res.status(400).json({ message: "Title and info are required" })
+      }
     } catch(err){
       res.status(500).json(err)
     }

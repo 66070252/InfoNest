@@ -23,6 +23,8 @@ const useUserRoute = async (router) => {
  *                          type: array
  *                          items:
  *                              $ref: '#/components/schemas/Info'
+ *          500:
+ *              description: Server error
  */
   router.get('/info', infoController.getAllInfo)
 
@@ -41,13 +43,15 @@ const useUserRoute = async (router) => {
  *         description: The ID of the info
  *     responses:
  *       200:
- *         description: A product detail
+ *         description: A info detail
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Info'
  *       404:
  *         description: Info not found
+ *       500:
+ *        description: Server error
  */
   router.get('/info/:id', infoController.getInfoById)
 
@@ -63,7 +67,7 @@ const useUserRoute = async (router) => {
  *         required: true
  *         schema:
  *           type: string
- *         description: The product ID
+ *         description: The info ID
  *     requestBody:
  *       required: true
  *       content:
@@ -75,6 +79,8 @@ const useUserRoute = async (router) => {
  *         description: Info updated successfully
  *       404:
  *         description: Info not found
+ *       500:
+ *         description: Server error
  */
   router.put('/info/:id', infoController.update)
 
@@ -93,6 +99,10 @@ const useUserRoute = async (router) => {
  *     responses:
  *       201:
  *         description: Info created successfully
+ *       400:
+ *         description: Title and info are required
+ *       500:
+ *         description: Server error
  */
   router.post('/info', infoController.create)
 
@@ -108,12 +118,14 @@ const useUserRoute = async (router) => {
  *         required: true
  *         schema:
  *           type: string
- *         description: The ID of the product to delete
+ *         description: The ID of the info to delete
  *     responses:
  *       200:
  *         description: Info deleted successfully
  *       404:
  *         description: Info not found
+ *       500:
+ *         description: Server error
  */
   router.delete('/info/:id', infoController.delete)
 
