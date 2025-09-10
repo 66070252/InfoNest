@@ -31,10 +31,6 @@ const options = {
                                 type: 'string',
                                 example: 'A new phone with advanced features',
                             },
-                            image: {
-                                type: 'string',
-                                example: 'https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/article/Apple-iPhone-15-Pro-lineup-color-lineup-geo-230912_big.jpg.large_2x.jpg',
-                            },
                             likes: {
                                 type: 'number',
                                 example: 100,
