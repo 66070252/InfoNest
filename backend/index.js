@@ -2,10 +2,12 @@ import dotenv from 'dotenv'
 import express from 'express'
 import mongoose from 'mongoose'
 import router from './routes/router.js'
+import cors from 'cors'
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './services/swagger.js'
 
 const app = express()
+app.use(cors())
 const port = 3000
 
 dotenv.config()
