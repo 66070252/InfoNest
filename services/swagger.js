@@ -41,6 +41,27 @@ const options = {
                             },
                         },
                     },
+                    User: {
+                        type: 'object',
+                        properties: {
+                            id: {
+                                type: 'integer',
+                                example: 1,
+                            },
+                            username: {
+                                type: 'string',
+                                example: 'jane doe',
+                            },
+                            password: {
+                                type: 'string',
+                                example: '1234',
+                            },
+                            ConfirmPassword: {
+                                type: 'string',
+                                example: '1234',
+                            }
+                        },
+                    },
                     InfoInput: {
                         type: 'object',
                         required: ['title', 'info'],
@@ -53,6 +74,24 @@ const options = {
                                 type: 'string',
                                 example: 'A new phone with advanced features',
                             },
+                        },
+                    },
+                    UserInput: {
+                        type: 'object',
+                        required: ['username', 'password', 'ConfirmPassword'],
+                        properties: {
+                            username: {
+                                type: 'string',
+                                example: 'yum',
+                            },
+                            password: {
+                                type: 'string',
+                                example: '12345',
+                            },
+                            ConfirmPassword: {
+                                type: 'string',
+                                example: '12345',
+                            }
                         },
                     },
                     ErrorResponse: {
