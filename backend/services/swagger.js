@@ -31,10 +31,6 @@ const options = {
                                 type: 'string',
                                 example: 'A new phone with advanced features',
                             },
-                            image: {
-                                type: 'string',
-                                example: 'https://www.apple.com/newsroom/images/2023/09/apple-unveils-iphone-15-pro-and-iphone-15-pro-max/article/Apple-iPhone-15-Pro-lineup-color-lineup-geo-230912_big.jpg.large_2x.jpg',
-                            },
                             likes: {
                                 type: 'number',
                                 example: 100,
@@ -43,6 +39,27 @@ const options = {
                                 type: 'number',
                                 example: 10,
                             },
+                        },
+                    },
+                    User: {
+                        type: 'object',
+                        properties: {
+                            id: {
+                                type: 'integer',
+                                example: 1,
+                            },
+                            username: {
+                                type: 'string',
+                                example: 'jane doe',
+                            },
+                            password: {
+                                type: 'string',
+                                example: '1234',
+                            },
+                            ConfirmPassword: {
+                                type: 'string',
+                                example: '1234',
+                            }
                         },
                     },
                     InfoInput: {
@@ -57,6 +74,24 @@ const options = {
                                 type: 'string',
                                 example: 'A new phone with advanced features',
                             },
+                        },
+                    },
+                    UserInput: {
+                        type: 'object',
+                        required: ['username', 'password', 'ConfirmPassword'],
+                        properties: {
+                            username: {
+                                type: 'string',
+                                example: 'yum',
+                            },
+                            password: {
+                                type: 'string',
+                                example: '12345',
+                            },
+                            ConfirmPassword: {
+                                type: 'string',
+                                example: '12345',
+                            }
                         },
                     },
                     ErrorResponse: {

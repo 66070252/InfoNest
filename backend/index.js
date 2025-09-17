@@ -1,13 +1,12 @@
 import dotenv from 'dotenv'
-import express from 'express'
+import express, { json } from 'express'
+import cors from 'cors'
 import mongoose from 'mongoose'
 import router from './routes/router.js'
-import cors from 'cors'
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './services/swagger.js'
 
 const app = express()
-app.use(cors())
 const port = 3000
 
 dotenv.config()
@@ -24,6 +23,7 @@ const connect = async () => {
 await connect()
 
 app.use(express.json())
+app.use(cors())
 app.use("/api", router)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

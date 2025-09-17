@@ -55,7 +55,7 @@ export default {
 }
 
 .info-title {
-    font-size: 1.35em;
+    font-size: 1em;
     margin-bottom: 4px;
     text-align: left;
     color: #22223b;

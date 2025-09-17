@@ -9,7 +9,7 @@ const InfoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  image: {
+  images: {
     type: String
   },
   likes: {

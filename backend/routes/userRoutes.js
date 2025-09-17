@@ -1,134 +1,129 @@
-import infoController from "../controllers/infoController.js"
+import userController from "../controllers/userController.js"
 
 const useUserRoute = async (router) => {
   /**
  * @swagger
  * tags:
- *  name: Info
- *  description: Info management endpoints
+ *  name: User
+ *  description: User management endpoints
  */
 
   /**
  * @swagger
- * /api/info:
+ * /api/user:
  *  get:
- *      summary: Get all info
- *      tags: [Info]
+ *      summary: Get all user
+ *      tags: [User]
  *      responses:
  *          200:
- *              description: A list of Info
+ *              description: A list of User
  *              content:
  *                  application/json:
  *                      schema:
  *                          type: array
  *                          items:
- *                              $ref: '#/components/schemas/Info'
+ *                              $ref: '#/components/schemas/User'
  *          500:
  *              description: Server error
  */
-  router.get('/info', infoController.getAllInfo)
-
+  router.get('/user', userController.getAllUsers)
   /**
  * @swagger
- * /api/info/{id}:
+ * /api/user/{id}:
  *   get:
- *     summary: Get a info by ID
- *     tags: [Info]
+ *     summary: Get a user by ID
+ *     tags: [User]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: The ID of the info
+ *         description: The ID of the user
  *     responses:
  *       200:
- *         description: A info detail
+ *         description: A user detail
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Info'
+ *               $ref: '#/components/schemas/User'
  *       404:
- *         description: Info not found
+ *         description: User not found
  *       500:
  *        description: Server error
  */
-  router.get('/info/:id', infoController.getInfoById)
-
-  /**
+  router.get('/user/:id', userController.getUserById)
+/**
  * @swagger
- * /api/info/{id}:
+ * /api/user/{id}:
  *   put:
- *     summary: Update a info
- *     tags: [Info]
+ *     summary: Update a user
+ *     tags: [User]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: The info ID
+ *         description: The user ID
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/InfoInput'
+ *             $ref: '#/components/schemas/UserInput'
  *     responses:
  *       200:
- *         description: Info updated successfully
+ *         description: User updated successfully
  *       404:
- *         description: Info not found
+ *         description: User not found
  *       500:
  *         description: Server error
  */
-  router.put('/info/:id', infoController.update)
-
+  router.put('/user/:id', userController.update)
   /**
  * @swagger
- * /api/info:
+ * /api/user:
  *   post:
- *     summary: Create a new info
- *     tags: [Info]
+ *     summary: Create a new user
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/InfoInput'
+ *             $ref: '#/components/schemas/UserInput'
  *     responses:
  *       201:
  *         description: Info created successfully
  *       400:
- *         description: Title and info are required
+ *         description: username and password are required
  *       500:
  *         description: Server error
  */
-  router.post('/info', infoController.create)
-
-  /**
+  router.post('/user',userController.create)
+    /**
  * @swagger
- * /api/info/{id}:
+ * /api/user/{id}:
  *   delete:
- *     summary: delete a info
- *     tags: [Info]
+ *     summary: delete a user
+ *     tags: [User]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: The ID of the info to delete
+ *         description: The ID of the user to delete
  *     responses:
  *       200:
- *         description: Info deleted successfully
+ *         description: User deleted successfully
  *       404:
- *         description: Info not found
+ *         description: User not found
  *       500:
  *         description: Server error
  */
-  router.delete('/info/:id', infoController.delete)
-
+  router.delete('/user/:id', userController.delete)
 }
 
 export default useUserRoute
