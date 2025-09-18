@@ -1,4 +1,5 @@
 import userController from "../controllers/userController.js"
+import authMiddleware from "../middlewares/authMiddleware.js"
 
 const useUserRoute = async (router) => {
   /**
@@ -26,7 +27,7 @@ const useUserRoute = async (router) => {
  *          500:
  *              description: Server error
  */
-  router.get('/user', userController.getAllUsers)
+  router.get('/user', authMiddleware("admin"), userController.getAllUsers)
   /**
  * @swagger
  * /api/user/{id}:
@@ -95,13 +96,13 @@ const useUserRoute = async (router) => {
  *             $ref: '#/components/schemas/UserInput'
  *     responses:
  *       201:
- *         description: Info created successfully
+ *         description: User created successfully
  *       400:
  *         description: username and password are required
  *       500:
  *         description: Server error
  */
-  router.post('/user',userController.create)
+  router.post('/user',userController.register)
     /**
  * @swagger
  * /api/user/{id}:
@@ -124,6 +125,7 @@ const useUserRoute = async (router) => {
  *         description: Server error
  */
   router.delete('/user/:id', userController.delete)
+  router.post('/login', userController.login)
 }
 
 export default useUserRoute
