@@ -10,9 +10,9 @@ const userService = {
   getByUsername: async (name) => {
     return await User.findOne({ name: name });
   },
-  create: async(username, password, ConfirmPassword) => {
+  create: async(username, email, password) => {
     return await User.create({
-      username, password, ConfirmPassword
+      username, email, password
     })
   },
   delete: async (id) => {
