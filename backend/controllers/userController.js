@@ -23,8 +23,8 @@ const userController = {
   },
   register: async (req, res) => {
     try{
-      const { username, password, ConfirmPassword } = req.body
-      const user = await userService.create(username, password, ConfirmPassword)
+      const { username, email, password } = req.body
+      const user = await userService.create(username, email, password)
       res.status(201).json(user)
     } catch(err){
       res.status(500).json(err)
