@@ -23,34 +23,44 @@ const userController = {
   },
   register: async (req, res) => {
     try{
-      const { username, email, password } = req.body
-      const user = await userService.create(username, email, password)
+      const { name, email, password} = req.body
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const user = await userService.create(name, email, hashedPassword)
       res.status(201).json(user)
     } catch(err){
       res.status(500).json(err)
     }
   },
   login: async (req, res) => {
-    const { name, password } = req.body
-    const user = await userService.getByUsername(name);
-    if(!user){
-      res.user(401).json({
-        message: "Username or Password incorrect"
-      });
+    const { username, password } = req.body;
+    const user = await userService.getByUsername(username);
+    if (!user) {
+      return res.status(401).json({ message: "Username or Password incorrect" });
     }
+
     const isMatch = await bcrypt.compare(password, user.password);
-    if(!isMatch){
-      res.user(401).json({
-        message: "Username or Password incorrect"
-      });
+    if (!isMatch) {
+      return res.status(401).json({ message: "Username or Password incorrect" });
     }
-    
+
     const jwt_secret = process.env.JWT_SECRET;
-    const payload = { name: user.name, userId: user.id, role: user.role}
+    const payload = { userId: user._id, role: user.role };
     const token = jwt.sign(payload, jwt_secret, { expiresIn: "3d" });
+
+    res.cookie("token", token, {
+      maxAge: 3 * 24 * 60 * 60 * 1000
+    });
+
     res.status(200).json({
+      message: "Login successful",
+      user: { id: user._id, username: user.username, role: user.role },
       token: token
-    })
+    });
+  },
+
+  logout: (req, res) => {
+    res.clearCookie("token");
+    res.status(200).json({ message: "Logged out successfully" });
   },
   delete: async (req, res) => {
     try {

@@ -125,7 +125,8 @@ const useUserRoute = async (router) => {
  *         description: Server error
  */
   router.delete('/user/:id', userController.delete)
-  router.post('/login', userController.login)
-}
+  router.post("/login", userController.login)
+  router.post("/logout", userController.logout)
+};
 
 export default useUserRoute

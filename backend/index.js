@@ -5,11 +5,13 @@ import mongoose from 'mongoose'
 import router from './routes/router.js'
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './services/swagger.js'
+import cookieParser from "cookie-parser";
 
 const app = express()
 const port = 3000
 
 dotenv.config()
+
 
 const dbUrl = process.env.DB_URL
 const connect = async () => {
@@ -23,6 +25,7 @@ const connect = async () => {
 await connect()
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(cors())
 app.use("/api", router)
 
