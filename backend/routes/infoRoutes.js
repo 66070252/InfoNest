@@ -82,7 +82,7 @@ const useUserRoute = async (router) => {
  *       500:
  *         description: Server error
  */
-  router.put('/info/:id', infoController.update)
+  router.put('/info/:id', authMiddleware(), infoController.update)
 
   /**
  * @swagger
@@ -104,7 +104,7 @@ const useUserRoute = async (router) => {
  *       500:
  *         description: Server error
  */
-  router.post('/info', infoController.create)
+  router.post('/info', authMiddleware(), infoController.create)
 
   /**
  * @swagger
@@ -127,7 +127,7 @@ const useUserRoute = async (router) => {
  *       500:
  *         description: Server error
  */
-  router.delete('/info/:id', infoController.delete)
+  router.delete('/info/:id', authMiddleware(), infoController.delete)
 
 }
 
