@@ -125,6 +125,26 @@ const useUserRoute = async (router) => {
  *         description: Server error
  */
   router.delete('/user/:id', authMiddleware("admin"), userController.delete)
+  /**
+ * @swagger
+ * /api/login:
+ *   post:
+ *     summary: login user
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/loginInput'
+ *     responses:
+ *       201:
+ *         description: User login successfully
+ *       400:
+ *         description: username and password are required
+ *       500:
+ *         description: Server error
+ */
   router.post("/login", userController.login)
   router.post("/logout", authMiddleware(), userController.logout)
 };

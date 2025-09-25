@@ -15,6 +15,13 @@ const options = {
                 },
             ],
             components: {
+                securitySchemes: {
+                    bearerAuth: {
+                        type: 'http',
+                        scheme: 'bearer',
+                        bearerFormat: 'JWT',
+                    },
+                },
                 schemas: {
                     Info: {
                         type: 'object',
@@ -78,20 +85,34 @@ const options = {
                     },
                     UserInput: {
                         type: 'object',
-                        required: ['username', 'password', 'ConfirmPassword'],
+                        required: ['username','email', 'password'],
                         properties: {
                             username: {
                                 type: 'string',
                                 example: 'yum',
                             },
+                            email: {
+                                type: 'string',
+                                example: 'yum@mail.com'
+                            },
                             password: {
                                 type: 'string',
                                 example: '12345',
                             },
-                            ConfirmPassword: {
+                        },
+                    },
+                    loginInput: {
+                        type: 'object',
+                        required: ['username','email', 'password'],
+                        properties: {
+                            emailOrUsername: {
+                                type: 'string',
+                                example: 'yum@mail.com'
+                            },
+                            password: {
                                 type: 'string',
                                 example: '12345',
-                            }
+                            },
                         },
                     },
                     ErrorResponse: {
