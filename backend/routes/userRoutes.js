@@ -53,7 +53,7 @@ const useUserRoute = async (router) => {
  *       500:
  *        description: Server error
  */
-  router.get('/user/:id', userController.getUserById)
+  router.get('/user/:id', authMiddleware("admin"), userController.getUserById)
 /**
  * @swagger
  * /api/user/{id}:
@@ -81,7 +81,7 @@ const useUserRoute = async (router) => {
  *       500:
  *         description: Server error
  */
-  router.put('/user/:id', userController.update)
+  router.put('/user/:id', authMiddleware(), userController.update)
   /**
  * @swagger
  * /api/user:
@@ -124,8 +124,9 @@ const useUserRoute = async (router) => {
  *       500:
  *         description: Server error
  */
-  router.delete('/user/:id', userController.delete)
-  router.post('/login', userController.login)
-}
+  router.delete('/user/:id', authMiddleware("admin"), userController.delete)
+  router.post("/login", userController.login)
+  router.post("/logout", authMiddleware(), userController.logout)
+};
 
 export default useUserRoute

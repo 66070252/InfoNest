@@ -44,31 +44,39 @@ const userController = {
         user = await userService.getByEmail(emailOrUsername);
       }
       console.log(user)
-      if(!user){
-        return res.status(401).json({
-        message: "Username or Password incorrect"
-        });
+      if (!user) {
+        return res.status(401).json({ message: "Username or Password incorrect" });
       }
-      const isMatch = await bcrypt.compare(password, user.password);
-      console.log("Password match result:", isMatch);
 
-      if(!isMatch){
-        return res.status(401).json({
-        message: "Username or Password incorrect"
-        });
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Username or Password incorrect" });
       }
-      
+
       const jwt_secret = process.env.JWT_SECRET;
-      const payload = { username: user.username, userId: user.id, role: user.role}
+      const payload = { userId: user._id, role: user.role };
       const token = jwt.sign(payload, jwt_secret, { expiresIn: "3d" });
+      console.log(token)
+
+      res.cookie("token", token, {
+        maxAge: 3 * 24 * 60 * 60 * 1000
+      });
+
       res.status(200).json({
+        message: "Login successful",
+        user: { id: user._id, username: user.username, role: user.role },
         token: token
-      })
-      console.log("Generated JWT:", token);
-     } catch(err){
+      });
+    } catch(err){
       res.status(500).json(err)
     }
   },
+
+  logout: (req, res) => {
+    res.clearCookie("token");
+    res.status(200).json({ message: "Logged out successfully" });
+  },
+
   delete: async (req, res) => {
     try {
       const id = req.params.id
