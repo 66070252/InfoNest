@@ -1,16 +1,15 @@
 <template>
-  <div>
     <NavigationBar></NavigationBar>
     <div class="info-container">
       <InfoFrame v-for="info in infoList" :key="info.id" :imgSrc="info.image" :title="info.title">
       </InfoFrame>
     </div>
-  </div>
+
 </template>
 
 <script>
-import InfoFrame from '../InfoFrame.vue'
-import NavigationBar from '../NavigationBar.vue'
+import InfoFrame from '../components/InfoFrame.vue'
+import NavigationBar from '../components/NavigationBar.vue'
 
 
 export default {
@@ -42,10 +41,11 @@ export default {
   justify-content: center;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 60px;
+  background-color: white;
+  min-height: 100vh; /* ครอบเต็มหน้าจอ */
 }
 </style>

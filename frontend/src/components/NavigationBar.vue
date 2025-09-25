@@ -20,7 +20,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Segoe UI', Arial, sans-serif;
   position: fixed;
   top: 0;
   left: 0;

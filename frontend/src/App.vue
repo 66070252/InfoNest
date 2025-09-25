@@ -1,23 +1,36 @@
 <template>
-  <div>
-    <router-view></router-view>  
+  <div id="app" :class="[pageClass]">
+    <router-view />
   </div>
 </template>
 
 <script>
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
+
+
 export default {
-  name: 'App',
-  components: {}
+  setup() {
+    const route = useRoute()
+    const pageClass = computed(() => route.name || '')
+    return { pageClass }
+  }
 }
 </script>
 
 <style>
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  min-height: 100vh;
+  font-family: 'KoHo', KoHo;
+}
+
+/* background ของแต่ละหน้า */
+.LoginPage, .RegisterPage {
+  color: #0E418F; /* ฟ้า */
+}
+
+.HomePage {
+  background-color: #fff;   /* ขาว */
 }
 </style>

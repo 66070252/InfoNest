@@ -24,33 +24,50 @@ const userController = {
   register: async (req, res) => {
     try{
       const { username, email, password } = req.body
-      const user = await userService.create(username, email, password)
+      const hashedPassword = await bcrypt.hash(password, 10)
+      const user = await userService.create(username, email, hashedPassword)
       res.status(201).json(user)
     } catch(err){
       res.status(500).json(err)
     }
   },
   login: async (req, res) => {
-    const { name, password } = req.body
-    const user = await userService.getByUsername(name);
-    if(!user){
-      res.user(401).json({
+    try{
+      const { emailOrUsername, password } = req.body
+      console.log(emailOrUsername, password)
+      const isEmail = /\S+@\S+\.\S+/.test(emailOrUsername);
+      let user = null
+
+      if (!isEmail) {
+        user = await userService.getByUsername(emailOrUsername);
+      } else {
+        user = await userService.getByEmail(emailOrUsername);
+      }
+      console.log(user)
+      if(!user){
+        return res.status(401).json({
         message: "Username or Password incorrect"
-      });
-    }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if(!isMatch){
-      res.user(401).json({
+        });
+      }
+      const isMatch = await bcrypt.compare(password, user.password);
+      console.log("Password match result:", isMatch);
+
+      if(!isMatch){
+        return res.status(401).json({
         message: "Username or Password incorrect"
-      });
+        });
+      }
+      
+      const jwt_secret = process.env.JWT_SECRET;
+      const payload = { username: user.username, userId: user.id, role: user.role}
+      const token = jwt.sign(payload, jwt_secret, { expiresIn: "3d" });
+      res.status(200).json({
+        token: token
+      })
+      console.log("Generated JWT:", token);
+     } catch(err){
+      res.status(500).json(err)
     }
-    
-    const jwt_secret = process.env.JWT_SECRET;
-    const payload = { name: user.name, userId: user.id, role: user.role}
-    const token = jwt.sign(payload, jwt_secret, { expiresIn: "3d" });
-    res.status(200).json({
-      token: token
-    })
   },
   delete: async (req, res) => {
     try {

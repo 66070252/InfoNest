@@ -1,3 +1,4 @@
+import { get } from "mongoose";
 import User from "../models/user.js"
 
 const userService = {
@@ -7,8 +8,11 @@ const userService = {
   getUserById: async (id) => {
     return await User.findById(id); 
   },
-  getByUsername: async (name) => {
-    return await User.findOne({ name: name });
+  getByUsername: async (username) => {
+    return await User.findOne({ username: username });
+  },
+  getByEmail: async (email) => {
+    return await User.findOne({ email: email });
   },
   create: async(username, email, password) => {
     return await User.create({
