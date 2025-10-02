@@ -1,5 +1,5 @@
 <template>
-  <h1>Info_Nest</h1>
+  <h1 class="app-title">Info_Nest</h1>
   <div>
     <form @submit.prevent="registerUser">
       <div>
@@ -18,59 +18,55 @@
         <label for="c_password">Confirm Password</label>
         <input type="password" id="c_password" v-model="form.c_password" required />
       </div>
-      <button type="submit">Sign Up</button>
+      <div class="button-wrapper">
+        <SubmitButton>Sign Up</SubmitButton>
+      </div>
     </form>
   </div>
 </template>
-<script>
+<script setup>
   import { ref } from "vue"
+  import SubmitButton from "../components/SubmitButton.vue"
 
-  export default {
-  name: "RegisterPage",
-  setup() {
-    const form = ref({
-      username: "",
-      email: "",
-      password: "",
-      c_password: "",
-    })
+  const form = ref({
+    username: "",
+    email: "",
+    password: "",
+    c_password: "",
+  })
 
-    const registerUser = async () => {
-      if (form.value.password !== form.value.c_password) {
-        alert("Passwords do not match!")
-        return
-      }
-
-      try {
-        const res = await fetch("http://localhost:3000/api/user", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: form.value.username,
-            email: form.value.email,
-            password: form.value.password,
-          }),
-        })
-
-        const data = await res.json()
-        console.log("Response:", data)
-
-        if (res.ok) {
-          alert("Registration successful!")
-        } else {
-          alert(data.message || "Error occurred")
-        }
-      } catch (err) {
-        console.error(err)
-        alert("Failed to connect to server")
-      }
+  const registerUser = async () => {
+    if (form.value.password !== form.value.c_password) {
+      alert("Passwords do not match!")
+      return
     }
 
-    return { form, registerUser }
-  },
-}
+    try {
+      const res = await fetch("http://localhost:3000/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: form.value.username,
+          email: form.value.email,
+          password: form.value.password,
+        }),
+      })
+
+      const data = await res.json()
+      console.log("Response:", data)
+
+      if (res.ok) {
+        alert("Registration successful!")
+      } else {
+        alert(data.message || "Error occurred")
+      }
+    } catch (err) {
+      console.error(err)
+      alert("Failed to connect to server")
+    }
+  }
 </script>
 
 <style>

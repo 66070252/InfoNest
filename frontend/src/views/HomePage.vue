@@ -35,17 +35,10 @@ export default {
 
 <style>
 .info-container {
+  margin-top: 60px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-}
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
-  background-color: white;
-  min-height: 100vh; /* ครอบเต็มหน้าจอ */
 }
 </style>

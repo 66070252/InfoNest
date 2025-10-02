@@ -1,5 +1,5 @@
 <template>
-  <h1>Info_Nest</h1>
+  <h1 class="app-title">Info_Nest</h1>
   <div>
     <form @submit.prevent="LoginUser">
       <div>
@@ -10,33 +10,38 @@
         <label for="password">Password</label>
         <input type="password" id="password" v-model="form.password" required />
       </div>
-      <button type="submit">Sign In</button>
+      <div class="button-wrapper">
+        <SubmitButton>Sign In</SubmitButton>
+      </div>
     </form>
   </div>
 </template>
-<script>
+<script setup>
   import { ref } from "vue"
+  import { useRouter } from "vue-router"
+  import SubmitButton from "../components/SubmitButton.vue"
 
-  export default {
-  name: "LoginPage",
-  setup() {
-    const form = ref({
-      emailOrUsername: "",
-      password: "",
-    })
+  const form = ref({
+    emailOrUsername: "",
+    password: "",
+  })
 
-    const LoginUser = async () => {
+  const router = useRouter() // เรียกใช้ Vue Router
 
-      try {
-        const res = await fetch("http://localhost:3000/api/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            emailOrUsername: form.value.emailOrUsername,
-            password: form.value.password,
-          }),
+
+  const LoginUser = async () => {
+
+    try {
+      const res = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+        emailOrUsername: form.value.emailOrUsername,
+        password: form.value.password,
+        credentials: "include"
+        }),
         })
 
         const data = await res.json()
@@ -44,6 +49,9 @@
 
         if (res.ok) {
           alert("Login successful!")
+           localStorage.setItem("jwtToken", data.token)
+          router.push("/")
+
         } else {
           alert(data.message || "Error occurred")
         }
@@ -51,11 +59,11 @@
         console.error(err)
         alert("Failed to connect to server")
       }
+
+      
     }
 
-    return { form, LoginUser }
-  },
-}
+
 </script>
 
 <style>
@@ -68,7 +76,7 @@
     background-color: white;
     max-width: 400px;
     margin: 40px auto;
-    padding: 20px;
+    padding: 50px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -91,5 +99,10 @@
     border-radius: 4px;
     box-sizing: border-box;
   }
+
+  body {
+    background-color: #0E418F; /* ฟ้า */
+  }
+
 
 </style>
