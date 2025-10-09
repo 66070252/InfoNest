@@ -40,4 +40,12 @@ h1.app-title {
 #app.HomePage {
   background-color: #FFFFFF; /* ขาว */
 }
+
+h1 {
+    text-align: center;
+    color: black;
+    margin-top: 20px;
+  }
+
+
 </style>

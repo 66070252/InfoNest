@@ -146,6 +146,9 @@ const useUserRoute = async (router) => {
  *         description: Server error
  */
   router.post("/login", userController.login)
+
+  router.get("/me", userController.me);
+
   router.post("/logout", authMiddleware(), userController.logout)
 };
 

@@ -26,7 +26,10 @@ await connect()
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({
+   origin: 'http://localhost:8081',
+   credentials: true
+}))
 app.use("/api", router)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

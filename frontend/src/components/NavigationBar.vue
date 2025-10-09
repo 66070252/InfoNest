@@ -6,17 +6,42 @@
       <router-link to="/no">Create</router-link>
       <router-link to="/no">Archive</router-link>
     </span>
-    <div class="is-login">
+    <div class="is-login" v-if="!isLoggedIn">
       <span class="sign-up-q">Did you have an account? </span>
       <span><router-link to="/login" class="sign-up-link">Login</router-link></span>
     </div>
+    <div v-else>
+      <router-link :to="`/${user.Username}`">{{ user.Username }}</router-link>
+    </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'NavigationBar'
-}
+
+<script setup>
+import { ref, onMounted } from 'vue'
+
+const isLoggedIn = ref(false)
+const user = ref(null)
+
+onMounted(() => {
+  fetch('http://localhost:3000/api/me', {
+    method: 'GET',
+    credentials: 'include' // สำคัญ! ส่ง cookie
+  })
+    .then(res => {
+      if (!res.ok) throw new Error('Not logged in')
+      return res.json()
+    })
+    .then(data => {
+      user.value = data.user
+      isLoggedIn.value = true
+      console.log(user.value)
+    })
+    .catch(() => {
+      isLoggedIn.value = false
+    })
+})
 </script>
+
 <style>
 .nav-bar {
   background-color: #0E418F;
@@ -70,9 +95,9 @@ export default {
   color: #FFD700;
 }
 
-.sign-up-q { 
+.nav-bar .sign-up-q { 
   font-size: 16px;             /* ขนาดตัวอักษรเหมือนกัน */
-  color: #fff;                 /* สีเหมือนกัน */
+  color: white;                 /* สีเหมือนกัน */
   text-decoration: none;       /* ป้องกัน underline */
 }
 

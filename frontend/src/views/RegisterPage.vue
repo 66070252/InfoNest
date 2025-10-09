@@ -21,6 +21,10 @@
       <div class="button-wrapper">
         <SubmitButton>Sign Up</SubmitButton>
       </div>
+      <div class="acct-or-not">
+        <span class="sign-up-q">Already have an account? </span>
+        <span><router-link to="/login" class="sign-up-link">Login</router-link></span>
+      </div>
     </form>
   </div>
 </template>
@@ -47,6 +51,7 @@
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           username: form.value.username,
           email: form.value.email,
@@ -70,12 +75,7 @@
 </script>
 
 <style>
-  
-  h1 {
-    text-align: center;
-    color: white;
-    margin-top: 20px;
-  }
+
   form {
     background-color: white;
     max-width: 400px;
@@ -102,5 +102,24 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+  }
+
+  .sign-up-q { 
+    font-size: 16px;             /* ขนาดตัวอักษรเหมือนกัน */
+    color: black;                 /* สีเหมือนกัน */
+    text-decoration: none;       /* ป้องกัน underline */
+  }
+
+  .sign-up-link {
+    color: #FFD700;
+    font-size: 16px;           
+    text-decoration: none;     
+    margin: 0;                  /* ลบ margin จาก .nav-bar a */
+    padding: 0;                 /* ลบ padding จาก .nav-bar a */
+  }
+
+  .sign-up-link:hover,
+  .sign-up-link.router-link-exact-active {
+    text-decoration: underline;  /* หรือใส่ effect hover ตามต้องการ */
   }
 </style>

@@ -54,11 +54,13 @@ const userController = {
       }
 
       const jwt_secret = process.env.JWT_SECRET;
-      const payload = { userId: user._id, role: user.role };
+      const payload = { userId: user._id, Username: user.username, role: user.role };
       const token = jwt.sign(payload, jwt_secret, { expiresIn: "3d" });
-      console.log(token)
 
       res.cookie("token", token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
         maxAge: 3 * 24 * 60 * 60 * 1000
       });
 
@@ -69,6 +71,19 @@ const userController = {
       });
     } catch(err){
       res.status(500).json(err)
+    }
+  },
+
+  me: (req, res) => {
+    const token = req.cookies.token;
+    console.log("where:", token)
+    if (!token) return res.status(401).json({ message: 'Not logged in' });
+
+    try {
+      const user = jwt.verify(token, process.env.JWT_SECRET);
+      res.json({ user });
+    } catch {
+      res.status(401).json({ message: 'Invalid token' });
     }
   },
 

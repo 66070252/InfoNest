@@ -13,6 +13,10 @@
       <div class="button-wrapper">
         <SubmitButton>Sign In</SubmitButton>
       </div>
+      <div class="acct-or-not">
+        <span class="sign-up-q">Don't you have an account? </span>
+        <span><router-link to="/register" class="sign-up-link">Register</router-link></span>
+      </div>
     </form>
   </div>
 </template>
@@ -37,10 +41,10 @@
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
         emailOrUsername: form.value.emailOrUsername,
         password: form.value.password,
-        credentials: "include"
         }),
         })
 
@@ -49,8 +53,9 @@
 
         if (res.ok) {
           alert("Login successful!")
-           localStorage.setItem("jwtToken", data.token)
-          router.push("/")
+          setTimeout(() => {
+            router.push("/")
+          }, 300)
 
         } else {
           alert(data.message || "Error occurred")
@@ -67,11 +72,7 @@
 </script>
 
 <style>
-  h1 {
-    text-align: center;
-    color: white;
-    margin-top: 20px;
-  }
+
   form {
     background-color: white;
     max-width: 400px;
@@ -82,6 +83,13 @@
   }
   form div {
   margin-bottom: 15px; /* เว้นบรรทัดแต่ละช่อง */
+  }
+
+  .acct-or-not {
+    display: block;
+    margin-top: 40px;
+    color: white;
+    text-align: center;
   }
 
   label {
@@ -100,8 +108,23 @@
     box-sizing: border-box;
   }
 
-  body {
-    background-color: #0E418F; /* ฟ้า */
+  .sign-up-q { 
+    font-size: 16px;             /* ขนาดตัวอักษรเหมือนกัน */
+    color: black;                 /* สีเหมือนกัน */
+    text-decoration: none;       /* ป้องกัน underline */
+  }
+
+  .sign-up-link {
+    color: #FFD700;
+    font-size: 16px;           
+    text-decoration: none;     
+    margin: 0;                  /* ลบ margin จาก .nav-bar a */
+    padding: 0;                 /* ลบ padding จาก .nav-bar a */
+  }
+
+  .sign-up-link:hover,
+  .sign-up-link.router-link-exact-active {
+    text-decoration: underline;  /* หรือใส่ effect hover ตามต้องการ */
   }
 
 
