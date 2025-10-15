@@ -38,13 +38,21 @@ const options = {
                                 type: 'string',
                                 example: 'A new phone with advanced features',
                             },
+                            imageUrl:{
+                                type: 'string',
+                                example: "/uploads/image-1760546662056-268043302.png",
+                            },
+                            author: {
+                                type: 'object',
+                                example: '64f4c8e2f9d8b2a5c8e4d123',
+                            },
                             likes: {
                                 type: 'number',
-                                example: 100,
+                                example: 5,
                             },
                             dislikes: {
                                 type: 'number',
-                                example: 10,
+                                example: 5,
                             },
                         },
                     },

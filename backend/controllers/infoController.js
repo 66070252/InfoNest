@@ -59,15 +59,31 @@ const infoController = {
       res.status(500).json(err)
     }
   },
+  searchInfos: async (req, res) => {
+    try {
+      const query = req.query.q;
+      if (!query) {
+        return res.status(400).json({ message: "Search query 'q' is required" });
+      }
+      const results = await infoService.searchInfos(query);
+      res.status(200).json(results);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
   update: async (req, res) => {
     try {
-      const id = req.params.id;
-      const updateData = req.body;
-      const updatedInfo = await infoService.update(id, updateData);
-      if (!updatedInfo) {
-        return res.status(404).json({ message: "Info not found" });
+      const infoId = req.params.id;
+      const userId = req.user;
+      const updateData = req.body; 
+
+      const result = await infoService.updateByUser(infoId, userId, updateData);
+
+      if (result.error) {
+        return res.status(result.status).json({ message: result.error });
       }
-      res.status(200).json({ message: "Info updated successfully" });
+
+      res.status(200).json(result.info);
     } catch (err) {
       res.status(500).json(err);
     }

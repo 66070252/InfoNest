@@ -13,6 +13,7 @@
         <button @click="handleLike('dislike')" class="dislike-button">👎 Dislike ({{ info.dislikes }})</button>
       </div>
       <div class="actions" v-if="isOwner">
+        <router-link :to="{ name: 'EditPostPage', params: { id: infoId } }" class="edit-button">Edit Post</router-link>
         <button @click="deletePost" class="delete-button">Delete Post</button>
       </div>
     </div>
@@ -105,7 +106,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* ... your existing styles ... */
 .article-container {
   max-width: 800px;
   margin: 100px auto;
@@ -115,8 +115,19 @@ onMounted(() => {
   white-space: pre-wrap;
   line-height: 1.6;
 }
-
-/* ADD THIS STYLE FOR THE IMAGE */
+.edit-button {
+  background-color: #1976d2; /* Blue */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-right: 10px;
+  transition: background-color 0.2s;
+  display: inline-block;
+}
+.edit-button:hover {
+  background-color: #1565c0;
+}
 .content-image {
   width: 100%;
   max-width: 100%;

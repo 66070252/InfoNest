@@ -22,6 +22,17 @@ const routes = [
     name: 'ArchivePage', 
     component: () => import('../views/ArchivePage.vue'),
     meta: { requiresAuth: true }
+  },
+  { 
+    path: '/edit-post/:id', 
+    name: 'EditPostPage', 
+    component: () => import('../views/EditPostPage.vue'),
+    meta: { requiresAuth: true }
+  },
+  { 
+    path: '/search', 
+    name: 'SearchPage', 
+    component: () => import('../views/SearchPage.vue')
   }
 ]
 

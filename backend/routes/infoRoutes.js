@@ -29,9 +29,9 @@ const useUserRoute = async (router) => {
  */
   router.get('/info', infoController.getAllInfo)
   
-  router.get('/info/mine', authMiddleware(), infoController.getMyInfos)
-
-  /**
+  router.get('/info/search', infoController.searchInfos);
+  
+    /**
  * @swagger
  * /api/info/{id}:
  *   get:
@@ -56,6 +56,8 @@ const useUserRoute = async (router) => {
  *       500:
  *        description: Server error
  */
+  router.get('/info/mine', authMiddleware(), infoController.getMyInfos)
+
   router.get('/info/:id', infoController.getInfoById)
 
   /**
@@ -93,6 +95,8 @@ const useUserRoute = async (router) => {
  *   post:
  *     summary: Create a new info
  *     tags: [Info]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

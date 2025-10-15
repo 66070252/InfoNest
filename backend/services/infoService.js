@@ -20,6 +20,10 @@ const infoService = {
       author: authorId
     })
   },
+  searchInfos: async (query) => {
+    const searchRegex = new RegExp(query, 'i');
+    return await Info.find({ title: { $regex: searchRegex } });
+  },
   delete: async (id) => {
     return await Info.findByIdAndDelete(id);
   },
@@ -37,8 +41,16 @@ const infoService = {
     await Info.findByIdAndDelete(infoId);
     return { success: true };
   },
-  update: async (id, updateData) => {
-    return await Info.findByIdAndUpdate(id, updateData, { new: true });
+  updateByUser: async (infoId, userId, updateData) => {
+    const info = await Info.findById(infoId);
+    if (!info) {
+      return { error: "Post not found", status: 404 };
+    }
+    if (info.author.toString() !== userId) {
+      return { error: "Forbidden: You are not the author of this post", status: 403 };
+    }
+    const updatedInfo = await Info.findByIdAndUpdate(infoId, updateData, { new: true });
+    return { success: true, info: updatedInfo };
   },
   getInfosByAuthor: async (authorId) => {
     return await Info.find({ author: authorId });
