@@ -66,6 +66,8 @@ const useUserRoute = async (router) => {
  *   put:
  *     summary: Update a info
  *     tags: [Info]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -119,6 +121,8 @@ const useUserRoute = async (router) => {
  *   delete:
  *     summary: delete a info
  *     tags: [Info]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

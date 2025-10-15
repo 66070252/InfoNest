@@ -15,6 +15,8 @@ const useUserRoute = async (router) => {
  *  get:
  *      summary: Get all user
  *      tags: [User]
+ *      security:
+ *       - bearerAuth: []
  *      responses:
  *          200:
  *              description: A list of User
@@ -34,6 +36,8 @@ const useUserRoute = async (router) => {
  *   get:
  *     summary: Get a user by ID
  *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -60,6 +64,8 @@ const useUserRoute = async (router) => {
  *   put:
  *     summary: Update a user
  *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -109,6 +115,8 @@ const useUserRoute = async (router) => {
  *   delete:
  *     summary: delete a user
  *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id

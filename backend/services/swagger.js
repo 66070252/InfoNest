@@ -67,11 +67,11 @@ const options = {
                                 type: 'string',
                                 example: 'jane doe',
                             },
-                            password: {
+                            email: {
                                 type: 'string',
-                                example: '1234',
+                                example: 'jane@bow.com',
                             },
-                            ConfirmPassword: {
+                            password: {
                                 type: 'string',
                                 example: '1234',
                             }

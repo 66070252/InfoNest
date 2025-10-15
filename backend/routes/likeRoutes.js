@@ -14,7 +14,8 @@ const useLikeRoute = (router) => {
  *   post:
  *     summary: "Toggle Like"
  *     description: "This endpoint allows a user to like or unlike a post."
- *     tags: [Like]
+ *     tags:
+ *       - "Like"
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -56,32 +57,25 @@ const useLikeRoute = (router) => {
  *       400:
  *         description: "Bad Request - Invalid data"
  */
+   router.post("/like", authMiddleware(), likeController.toggleLike);
 
-         /**
+  /**
  * @swagger
  * /api/like/mine:
  *  get:
- *      summary: Get all post from my likes
+ *      summary: Get all Info by like
  *      tags: [Like]
+ *      security:
+ *       - bearerAuth: []
  *      responses:
  *          200:
  *              description: A list of Info
- *              content:
- *                  application/json:
- *                      schema:
- *                          type: array
- *                          items:
- *                              $ref: '#/components/schemas/Info'
  *          500:
  *              description: Server error
  */
    router.get("/like/mine", authMiddleware(), likeController.getLikedPosts);
 
    router.get("/like/all", authMiddleware("admin"), likeController.getAllLikes);
-
-   router.post("/like", authMiddleware(), likeController.toggleLike);
-
-   router.get("/like/all",authMiddleware("admin"), likeController.getAllLikes);
 
    router.get("/dislike/all", authMiddleware("admin"), likeController.getAllDislikes);
 };
