@@ -9,6 +9,13 @@ const likeService = {
   getAllDislikes: async () => {
     return await Like.find({ status: "dislike" }).populate("user info");
   },
+  getLikesByUser: async (userId) => {
+    const likes = await Like.find({ user: userId, status: "like" }).populate("info");
+    
+    const validLikes = likes.filter(like => like.info !== null);
+
+    return validLikes.map(like => like.info);
+  },
 
   toggleLike: async (userId, infoId, status = "like") => {
     const existing = await Like.findOne({ user: userId, info: infoId });

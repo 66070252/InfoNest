@@ -9,8 +9,14 @@ const InfoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  images: {
-    type: String
+  imageUrl: {
+    type: String,
+    required: false 
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
   likes: {
     type: Number,

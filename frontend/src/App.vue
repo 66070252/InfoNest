@@ -15,6 +15,12 @@ import { computed } from 'vue'
 
 <style>
 
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #app {
   height: 100vh;
   font-family: 'KoHo', KoHo;
@@ -33,12 +39,21 @@ h1.app-title {
   margin: 20px;
 }
 
+#app.LoginPage h1,
+#app.RegisterPage h1 {
+  margin-top: 0;
+}
+
 #app.LoginPage, #app.RegisterPage {
   background-color: #0E418F; /* ฟ้า */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: auto; /* เก็บไว้ก็ไม่เสียหายครับ */
 }
 
 #app.HomePage {
-  background-color: #FFFFFF; /* ขาว */
+  background-color: #FFFFFF;
 }
 
 h1 {

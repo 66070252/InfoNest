@@ -23,52 +23,32 @@
 <script setup>
   import { ref } from "vue"
   import { useRouter } from "vue-router"
+  import { useAuthStore } from "../stores/authStore" // << Import
   import SubmitButton from "../components/SubmitButton.vue"
 
-  const form = ref({
-    emailOrUsername: "",
-    password: "",
-  })
-
-  const router = useRouter() // เรียกใช้ Vue Router
-
+  const form = ref({ emailOrUsername: "", password: "" })
+  const router = useRouter()
+  const authStore = useAuthStore() 
 
   const LoginUser = async () => {
-
     try {
       const res = await fetch("http://localhost:3000/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-        emailOrUsername: form.value.emailOrUsername,
-        password: form.value.password,
-        }),
-        })
-
-        const data = await res.json()
-        console.log("Response:", data)
-
-        if (res.ok) {
-          alert("Login successful!")
-          setTimeout(() => {
-            router.push("/")
-          }, 300)
-
-        } else {
-          alert(data.message || "Error occurred")
-        }
-      } catch (err) {
-        console.error(err)
-        alert("Failed to connect to server")
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form.value),
+      })
+      const data = await res.json()
+      if (res.ok) {
+        authStore.setUserAndToken(data.user, data.token) 
+        alert("Login successful!")
+        router.push("/")
+      } else {
+        alert(data.message || "Login failed")
       }
-
-      
+    } catch (err) {
+      alert("Failed to connect to server")
     }
-
-
+  }
 </script>
 
 <style>

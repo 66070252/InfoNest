@@ -28,6 +28,8 @@ const useUserRoute = async (router) => {
  *              description: Server error
  */
   router.get('/info', infoController.getAllInfo)
+  
+  router.get('/info/mine', authMiddleware(), infoController.getMyInfos)
 
   /**
  * @swagger

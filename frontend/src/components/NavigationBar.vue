@@ -1,48 +1,39 @@
 <template>
   <div class="nav-bar">
-    <span class="app-name">Info_Nest</span>
-    <span class="buttons">
-      <router-link to="/no">Delete</router-link>
-      <router-link to="/no">Create</router-link>
-      <router-link to="/no">Archive</router-link>
+    <router-link to="/" class="app-name">Info_Nest</router-link>
+
+    <span class="buttons" v-if="authStore.isLoggedIn">
+      <router-link to="/my-posts">My Posts</router-link>
+      <router-link to="/create-post">Create</router-link>
+      <router-link to="/archive">Archive</router-link>
     </span>
-    <div class="is-login" v-if="!isLoggedIn">
+    
+    <div class="is-login" v-if="!authStore.isLoggedIn">
       <span class="sign-up-q">Did you have an account? </span>
       <span><router-link to="/login" class="sign-up-link">Login</router-link></span>
     </div>
-    <div v-else>
-      <router-link :to="`/${user.Username}`">{{ user.Username }}</router-link>
+
+    <div class="is-login" v-else>
+      <a href="#" @click.prevent="authStore.logout()" class="logout-link">Logout</a>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-
-const isLoggedIn = ref(false)
-const user = ref(null)
-
-onMounted(() => {
-  fetch('http://localhost:3000/api/me', {
-    method: 'GET',
-    credentials: 'include' // สำคัญ! ส่ง cookie
-  })
-    .then(res => {
-      if (!res.ok) throw new Error('Not logged in')
-      return res.json()
-    })
-    .then(data => {
-      user.value = data.user
-      isLoggedIn.value = true
-      console.log(user.value)
-    })
-    .catch(() => {
-      isLoggedIn.value = false
-    })
-})
+import { useAuthStore } from '../stores/authStore'
+const authStore = useAuthStore()
 </script>
 
 <style>
+.logout-link {
+  cursor: pointer;
+  color: #ffcdd2; 
+}
+
+.logout-link:hover {
+  color: #ef9a9a;
+}
+
 .nav-bar {
   background-color: #0E418F;
   height: 80px;

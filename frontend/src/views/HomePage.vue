@@ -1,13 +1,12 @@
 <template>
   <NavigationBar />
-
   <div class="info-container">
     <InfoFrame 
-        v-for="info in infoList"
-        :key="info._id"
-        :imgSrc="info.image" 
-        :title="info.title" 
-        :to="{ name: 'ArticlePage', params: { id: info._id }}"/>
+      v-for="info in infoList"
+      :key="info._id"
+      :imgSrc="info.imageUrl ? `http://localhost:3000${info.imageUrl}` : null"
+      :title="info.title" 
+      :to="{ name: 'ArticlePage', params: { id: info._id }}"/>
   </div>
 </template>
 

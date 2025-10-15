@@ -46,7 +46,17 @@ const likeController = {
       console.error(err);
       res.status(500).json({ message: err.message });
     }
-  }
+  },
+  getLikedPosts: async (req, res) => {
+    try {
+      const userId = req.user; 
+      const likedInfos = await likeService.getLikesByUser(userId);
+      res.status(200).json(likedInfos);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: err.message });
+    }
+  },
 };
 
 export default likeController;

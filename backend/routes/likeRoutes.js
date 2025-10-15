@@ -57,11 +57,16 @@ const useLikeRoute = (router) => {
  *       400:
  *         description: "Bad Request - Invalid data"
  */
-  router.post("/like", authMiddleware(), likeController.toggleLike);
 
-  router.get("/like/all",authMiddleware("admin"), likeController.getAllLikes);
+   router.get("/like/mine", authMiddleware(), likeController.getLikedPosts);
+   
+   router.get("/like/all", authMiddleware("admin"), likeController.getAllLikes);
 
-  router.get("/dislike/all", authMiddleware("admin"), likeController.getAllDislikes);
+   router.post("/like", authMiddleware(), likeController.toggleLike);
+
+   router.get("/like/all",authMiddleware("admin"), likeController.getAllLikes);
+
+   router.get("/dislike/all", authMiddleware("admin"), likeController.getAllDislikes);
 };
 
 export default useLikeRoute;
