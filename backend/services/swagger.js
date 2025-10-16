@@ -89,6 +89,10 @@ const options = {
                                 type: 'string',
                                 example: 'A new phone with advanced features',
                             },
+                            imageUrl: {
+                                type: 'string',
+                                example: ''
+                            }
                         },
                     },
                     UserInput: {
