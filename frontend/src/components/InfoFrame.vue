@@ -46,7 +46,6 @@ defineProps({
   height: 220px;
   object-fit: cover;
   border-radius: 12px;
-  margin-bottom: 18px;
   background: #f5f5f5;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
@@ -56,7 +55,6 @@ defineProps({
   height: 220px;
   border-radius: 12px;
   background: linear-gradient(135deg, #e0e0e0 60%, #f5f5f5 100%);
-  margin-bottom: 18px;
 }
 
 .info-title {

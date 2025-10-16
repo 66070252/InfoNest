@@ -56,7 +56,11 @@ watch(() => route.query.q, (newQuery) => {
 </script>
 
 <style scoped>
-.search-results-container { max-width: 1200px; margin: 100px auto; padding: 20px; }
-.info-container { display: flex; flex-wrap: wrap; justify-content: center; }
+.search-results-container { max-width: 100%; margin: 100px auto; padding: 20px; }
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 .loading, .no-results { text-align: center; margin-top: 50px; font-size: 1.2em; color: #666; }
 </style>

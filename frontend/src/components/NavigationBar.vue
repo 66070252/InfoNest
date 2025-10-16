@@ -1,7 +1,9 @@
 <template>
   <div class="nav-bar" :class="{ 'is-logged-in': authStore.isLoggedIn }">
     
-    <router-link to="/" class="app-name">Info_Nest</router-link>
+    <router-link to="/" class="app-name">
+      <div class="logo">Info_Nest</div>
+    </router-link>
 
     <div class="nav-center">
       
@@ -68,9 +70,15 @@ const performSearch = () => {
 /* --- ส่วนซ้าย: Logo --- */
 .app-name {
   font-weight: 700;
-  font-size: 42px;
   color: #fff;
   font-family: 'KoHo', KoHo;
+  text-decoration: none;
+}
+.logo {
+  font-size: 42px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  color: white;
   text-decoration: none;
 }
 
