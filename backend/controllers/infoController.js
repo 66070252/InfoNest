@@ -11,14 +11,16 @@ const infoController = {
   },
   getInfoById: async (req, res) => {
     try {
-      const id = req.params.id
-      const info = await infoService.getInfoById(id)
-      res.status(200).json(info)
+      const id = req.params.id;
+      const info = await infoService.getInfoById(id);
+      
       if (!info) {
-        return res.status(404).json({ message: "Info not found" })
+        return res.status(404).json({ message: "Info not found" });
       }
+
+      res.status(200).json(info);
     } catch(err) {
-      res.status(500).json(err)
+      res.status(500).json(err);
     }
   },
   getMyInfos: async (req, res) => {
@@ -32,15 +34,19 @@ const infoController = {
     }
   },
   create: async (req, res) => {
-    try{
-      const { title, info, imageUrl } = req.body
-      const authorId = req.user
+    try {
+      const { title, info, imageUrl } = req.body; 
+      const authorId = req.user;
 
-      const newInfo = await infoService.create(title, info, imageUrl, authorId)
+      if (!title || !info) {
+        return res.status(400).json({ message: "Title and info are required" });
+      }
 
-      res.status(201).json(newInfo)
-    } catch(err){
-      res.status(500).json(err)
+      const newInfo = await infoService.create(title, info, imageUrl, authorId);
+      
+      res.status(201).json(newInfo);
+    } catch(err) {
+      res.status(500).json(err);
     }
   },
   delete: async (req, res) => {
