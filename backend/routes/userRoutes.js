@@ -57,7 +57,7 @@ const useUserRoute = async (router) => {
  *       500:
  *        description: Server error
  */
-  router.get('/user/:id', authMiddleware("admin"), userController.getUserById)
+  router.get('/user/:id', userController.getUserById)
 /**
  * @swagger
  * /api/user/{id}:

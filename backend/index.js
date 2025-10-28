@@ -32,7 +32,7 @@ await connect()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-   origin: 'http://localhost:8080',
+   origin: ['http://localhost:8080', 'http://192.168.165.1:8080'],
    credentials: true
 }))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

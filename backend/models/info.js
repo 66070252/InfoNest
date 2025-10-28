@@ -18,6 +18,10 @@ const InfoSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  date: {
+    type: Date,
+    default: new Date(Date.now())
+  },
   likes: {
     type: Number,
     default: 0
