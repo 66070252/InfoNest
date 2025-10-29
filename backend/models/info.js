@@ -22,6 +22,10 @@ const InfoSchema = new mongoose.Schema({
     type: Date,
     default: new Date(Date.now())
   },
+  category: {
+    type: String,
+    required: true
+  },
   likes: {
     type: Number,
     default: 0
