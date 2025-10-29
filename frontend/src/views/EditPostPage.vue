@@ -26,6 +26,22 @@
           <label for="info">Info</label>
           <textarea id="info" v-model="form.info" rows="10" required></textarea>
         </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" v-model="form.category" required>
+            <option value="" disabled>Select category</option>
+            <option value="Technology & Computing">Technology & Computing</option>
+            <option value="Science & Nature">Science & Nature</option>
+            <option value="Health & Lifestyle">Health & Lifestyle</option>
+            <option value="Business & Finance">Business & Finance</option>
+            <option value="Arts & Entertainment">Arts & Entertainment</option>
+            <option value="Society & Culture">Society & Culture</option>
+            <option value="Travel & Places">Travel & Places</option>
+            <option value="News & Current Events">News & Current Events</option>
+          </select>
+        </div>
+
         <div class="button-wrapper">
           <SubmitButton :disabled="isSubmitting">
             {{ isSubmitting ? 'Saving...' : 'Save Changes' }}
@@ -65,6 +81,7 @@ onMounted(async () => {
     form.value.title = data.title;
     form.value.info = data.info;
     form.value.imageUrl = data.imageUrl;
+    form.value.category = data.category;
   } catch (error) {
     console.error('Failed to fetch post data:', error);
     alert('Could not load post data.');
@@ -104,7 +121,8 @@ const submitUpdate = async () => {
     const updateData = {
       title: form.value.title,
       info: form.value.info,
-      imageUrl: updatedImageUrl
+      imageUrl: updatedImageUrl,
+      category: form.value.category
     };
 
     // ส่ง PUT request ไปที่ Backend

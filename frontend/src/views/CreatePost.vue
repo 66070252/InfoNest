@@ -21,6 +21,20 @@
           <label for="info">Info</label>
           <textarea id="info" v-model="form.info" rows="10" required></textarea>
         </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" v-model="form.category" required>
+            <option value="" disabled>Select category</option>
+            <option value="Technology & Computing">Technology & Computing</option>
+            <option value="Science & Nature">Science & Nature</option>
+            <option value="Health & Lifestyle">Health & Lifestyle</option>
+            <option value="Business & Finance">Business & Finance</option>
+            <option value="Arts & Entertainment">Arts & Entertainment</option>
+            <option value="Society & Culture">Society & Culture</option>
+            <option value="Travel & Places">Travel & Places</option>
+            <option value="News & Current Events">News & Current Events</option>
+          </select>
+        </div>
         <div class="button-wrapper">
           <SubmitButton :disabled="isUploading">
             {{ isUploading ? 'Uploading Image...' : 'Publish Post' }}
@@ -92,8 +106,11 @@ const submitPost = async () => {
     const postData = {
       title: form.value.title,
       info: form.value.info,
-      imageUrl: imageUrl // ใส่ URL ที่ได้ (หรือ null ถ้าไม่ได้อัปโหลดรูป)
+      imageUrl: imageUrl, // ใส่ URL ที่ได้ (หรือ null ถ้าไม่ได้อัปโหลดรูป)
+      category: form.value.category
     };
+
+    console.log(form.value.category)
 
     const postRes = await fetch('http://localhost:3000/api/info', {
       method: 'POST',

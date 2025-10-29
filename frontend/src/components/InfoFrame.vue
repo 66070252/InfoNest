@@ -1,7 +1,10 @@
 <template>
   <router-link :to="to" class="info-frame">
-    <img v-if="imgSrc" :src="imgSrc" alt="Info Image" class="info-image" />
-    <div v-else class="info-image graybox"></div>
+    <div class="image-wrap">
+      <img v-if="imgSrc" :src="imgSrc" alt="Info Image" class="info-image" />
+      <div v-else class="info-image graybox"></div>
+      <div v-if="category" class="category-tag">{{ category }}</div>
+    </div>
     <div class="info-title">
       {{ title }}
     </div>
@@ -28,6 +31,10 @@ defineProps({
   title: {
     type: String,
     required: true
+  },
+  category: {
+    type: String,
+    default: null
   },
   to: {
     type: [String, Object],
@@ -97,6 +104,23 @@ defineProps({
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.image-wrap {
+  position: relative;
+}
+
+.category-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .info-metadata {

@@ -2,9 +2,10 @@
   <div>
     <NavigationBar />
     <div class="article-container" v-if="info">
-      <h1>{{ info.title }}</h1>
       
       <img v-if="info.imageUrl" :src="`http://localhost:3000${info.imageUrl}`" alt="Post image" class="content-image" />
+
+      <h1>{{ info.title }}</h1>
 
       <p class="article-content">{{ info.info }}</p>
 
@@ -14,7 +15,7 @@
       </div>
       <div class="actions" v-if="isOwner">
         <router-link :to="{ name: 'EditPostPage', params: { id: infoId } }" class="edit-button">Edit Post</router-link>
-        <button @click="deletePost" class="delete-button">Delete Post</button>
+        <div @click="deletePost" class="delete-button">Delete Post</div>
       </div>
     </div>
   </div>
@@ -148,7 +149,9 @@ onMounted(() => {
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
+  text-decoration: none;
   cursor: pointer;
+  display: inline-block;
   transition: background-color 0.2s;
 }
 .delete-button:hover {

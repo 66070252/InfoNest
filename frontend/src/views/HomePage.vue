@@ -11,35 +11,67 @@
         :author="info.author"
         :date="info.date"
         :to="{ name: 'ArticlePage', params: { id: info._id }}"
+        :category="info.category"
         :likes="info.likes"
         :dislikes="info.dislikes"
       />
     </div>
   </div>
-  <h1>All Articles</h1>
+  <div class="articles-section">
+    <h1>All Articles</h1>
+    
+    <div class="category-filters">
+      <button 
+        class="filter-btn"
+        :class="{ active: selectedCategory === null }"
+        @click="selectedCategory = null"
+      >
+        All
+      </button>
+      <button 
+        v-for="category in categories"
+        :key="category"
+        class="filter-btn"
+        :class="{ active: selectedCategory === category }"
+        @click="selectedCategory = category"
+      >
+        {{ category }}
+      </button>
+    </div>
+  </div>
+
   <div class="info-container">
     <InfoFrame 
-      v-for="info in infoList"
-      :key="info._id"
-      :imgSrc="info.imageUrl ? `http://localhost:3000${info.imageUrl}` : null"
-      :title="info.title"
-      :author="info.author"
-      :date="info.date"
-      :to="{ name: 'ArticlePage', params: { id: info._id }}"
-      :likes="info.likes"
-      :dislikes="info.dislikes"/>
+    v-for="info in filteredInfoList"
+    :key="info._id"
+    :imgSrc="info.imageUrl ? `http://localhost:3000${info.imageUrl}` : null"
+    :title="info.title"
+    :author="info.author"
+    :date="info.date"
+    :to="{ name: 'ArticlePage', params: { id: info._id }}"
+    :category="info.category"
+    :likes="info.likes"
+    :dislikes="info.dislikes"/>
   </div>
 </template>
 
 
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, computed, onMounted } from 'vue'
   import InfoFrame from '../components/InfoFrame.vue'
   import NavigationBar from '../components/NavigationBar.vue'
 
   // ใช้ ref สำหรับ reactive data
   const infoList = ref([])
   const topInfos = ref([])
+  const selectedCategory = ref(null)
+  const categories = ref([])
+
+  // Computed: filtered articles based on selected category
+  const filteredInfoList = computed(() => {
+    if (!selectedCategory.value) return infoList.value
+    return infoList.value.filter(info => info.category === selectedCategory.value)
+  })
 
   // ดึงข้อมูลเมื่อ component ถูก mount
   onMounted(async () => {
@@ -68,13 +100,15 @@
       // เราถึงค่อยมา sort และ filter ตรงนี้
       console.log(processedData) // ลองเช็คตรงนี้ครับ author จะเป็น username แล้ว
 
-      // sort by likes descending and pick top 3
       const sorted = [...processedData].sort((a, b) => (b.likes || 0) - (a.likes || 0))
       topInfos.value = sorted.slice(0, 3)
 
+      // Extract unique categories from all articles
+      categories.value = [...new Set(processedData.map(info => info.category))].sort()
+
       // For the main list, show all items but avoid duplicating the top 3
-      const topIds = new Set(topInfos.value.map(i => i._id))
-      infoList.value = processedData.filter(i => !topIds.has(i._id))
+      // const topIds = new Set(topInfos.value.map(i => i._id))
+      infoList.value = processedData.sort((a, b) => new Date(a.date) - new Date(b.date))
 
     } catch (err) {
       // (แก้ไข console.errord เป็น console.error)
@@ -93,6 +127,39 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.articles-section {
+  text-align: center;
+}
+
+.category-filters {
+  margin: 20px 0 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border: 2px solid #e0e0e0;
+  background: white;
+  border-radius: 20px;
+  font-size: 0.95em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #FF7F32;
+  color: #FF7F32;
+}
+
+.filter-btn.active {
+  background: #FF7F32;
+  border-color: #FF7F32;
+  color: white;
 }
 
 </style>

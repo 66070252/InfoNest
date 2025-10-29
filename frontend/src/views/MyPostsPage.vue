@@ -9,7 +9,11 @@
           v-for="info in myPosts"
           :key="info._id"
           :imgSrc="info.imageUrl ? `http://localhost:3000${info.imageUrl}` : null"
-          :title="info.title" 
+          :title="info.title"
+          :author="info.author"
+          :date="info.date"
+          :likes="info.likes"
+          :dislikes="info.dislikes"
           :to="{ name: 'ArticlePage', params: { id: info._id }}"/>
       </div>
       <div v-else class="no-posts">
@@ -43,7 +47,19 @@ onMounted(async () => {
     });
     if (res.ok) {
       const data = await res.json();
-      myPosts.value = data;
+      // Fetch user data for each post's author
+      const userFetchPromises = data.map(info => {
+        return fetch(`http://localhost:3000/api/user/${info.author}`)
+          .then(res => res.json())
+          .then(userData => {
+            info.author = userData.username;
+            info.date = new Date(info.date).toDateString();
+            return info;
+          });
+      });
+
+      // Wait for all user data to be fetched
+      myPosts.value = await Promise.all(userFetchPromises);
     } else {
       console.error('Failed to fetch my posts');
     }
