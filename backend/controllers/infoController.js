@@ -35,14 +35,14 @@ const infoController = {
   },
   create: async (req, res) => {
     try {
-      const { title, info, imageUrl, category } = req.body; 
+      const { title, info, imageUrl, category, date } = req.body; 
       const authorId = req.user;
 
       if (!title || !info) {
         return res.status(400).json({ message: "Title and info are required" });
       }
 
-      const newInfo = await infoService.create(title, info, imageUrl, authorId, category);
+      const newInfo = await infoService.create(title, info, imageUrl, category, authorId, date);
       
       res.status(201).json(newInfo);
     } catch(err) {

@@ -13,6 +13,10 @@ const InfoSchema = new mongoose.Schema({
     type: String,
     required: false 
   },
+  category: {
+    type: String,
+    required: true
+  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -20,10 +24,6 @@ const InfoSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    default: new Date(Date.now())
-  },
-  category: {
-    type: String,
     required: true
   },
   likes: {

@@ -12,13 +12,14 @@ const infoService = {
     console.log("   - Received authorId:", authorId);
     return await Info.find({ author: authorId });
   },
- create: async(title, info, imageUrl, authorId, category) => {
+ create: async(title, info, imageUrl, category, authorId, date) => {
     return await Info.create({
       title, 
       info,
       imageUrl,
+      category,
       author: authorId,
-      category
+      date
     })
   },
   searchInfos: async (query) => {
