@@ -107,7 +107,8 @@ const submitPost = async () => {
       title: form.value.title,
       info: form.value.info,
       imageUrl: imageUrl, // ใส่ URL ที่ได้ (หรือ null ถ้าไม่ได้อัปโหลดรูป)
-      category: form.value.category
+      category: form.value.category,
+      date: new Date()
     };
 
     console.log(form.value.category)

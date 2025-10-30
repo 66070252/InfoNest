@@ -104,7 +104,14 @@
       topInfos.value = sorted.slice(0, 3)
 
       // Extract unique categories from all articles
-      categories.value = [...new Set(processedData.map(info => info.category))].sort()
+      categories.value = ["Technology & Computing",
+                          "Science & Nature",
+                          "Health & Lifestyle",
+                          "Business & Finance",
+                          "Arts & Entertainment",
+                          "Society & Culture",
+                          "Travel & Places",
+                          "News & Current Events"].sort()
 
       // For the main list, show all items but avoid duplicating the top 3
       // const topIds = new Set(topInfos.value.map(i => i._id))
