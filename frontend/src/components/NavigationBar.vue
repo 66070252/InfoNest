@@ -15,9 +15,9 @@
         </span>
 
         <div class="search-container">
-          <form @submit.prevent="performSearch">
+          <form class="search-bar" @submit.prevent="performSearch">
             <input type="text" v-model="searchQuery" placeholder="Search posts..." />
-            <button type="submit">🔍</button>
+            <button type="submit" >🔍</button>
           </form>
         </div>
       </div>
@@ -110,7 +110,12 @@ const performSearch = () => {
 
 /* V V V V V  หัวใจของการแก้ไขครั้งสุดท้าย  V V V V V */
 
-.search-container form { display: flex; }
+.search-container form { 
+  display: flex; 
+  margin: 0;
+  padding: 0;
+  background: none;
+}
 
 .search-container input {
   padding: 8px 12px;
@@ -120,6 +125,13 @@ const performSearch = () => {
   border: 1px solid transparent;
   /* 2. เพิ่ม transition เพื่อให้การเปลี่ยนแปลงนุ่มนวล */
   transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+form .search-bar{
+  padding: none;
+  margin: none;
+  border: none;
+  background: none;
 }
 
 /* 3. เมื่อล็อกอินแล้วเท่านั้น (.is-logged-in) ให้ Input กลับมาเป็นสีขาว */
