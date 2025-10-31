@@ -10,8 +10,8 @@
       <p class="article-content">{{ info.info }}</p>
 
       <div class="like-section">
-        <button @click="handleLike('like')" class="like-button">👍 Like ({{ info.likes }})</button>
-        <button @click="handleLike('dislike')" class="dislike-button">👎 Dislike ({{ info.dislikes }})</button>
+        <button @click="handleLike('like')" class="like-button" :class="{active: info.likes && isOwner }">👍 Like ({{ info.likes }})</button>
+        <button @click="handleLike('dislike')" class="dislike-button" :class="{active: info.dislikes && isOwner }">👎 Dislike ({{ info.dislikes }})</button>
       </div>
       <div class="actions" v-if="isOwner">
         <router-link :to="{ name: 'EditPostPage', params: { id: infoId } }" class="edit-button">Edit Post</router-link>
@@ -129,6 +129,7 @@ onMounted(() => {
 .edit-button:hover {
   background-color: #1565c0;
 }
+
 .content-image {
   width: 100%;
   max-width: 100%;
@@ -177,8 +178,18 @@ onMounted(() => {
   background-color: #e3f2fd;
   border-color: #90caf9;
 }
+.like-button.active {
+  background-color: #1976d2;
+  color: white;
+  border-color: #1565c0;
+}
 .dislike-button:hover {
   background-color: #ffebee;
   border-color: #ef9a9a;
+}
+.dislike-button.active {
+  background-color: #d32f2f;
+  color: white;
+  border-color: #c62828;
 }
 </style>

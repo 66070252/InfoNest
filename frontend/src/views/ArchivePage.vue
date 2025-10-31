@@ -73,7 +73,6 @@ onMounted(async () => {
 
 <style scoped>
 .archive-container {
-  max-width: 1200px;
   margin: 100px auto;
   padding: 20px;
 }

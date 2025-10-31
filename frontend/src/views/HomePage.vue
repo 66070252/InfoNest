@@ -111,7 +111,8 @@
                           "Arts & Entertainment",
                           "Society & Culture",
                           "Travel & Places",
-                          "News & Current Events"].sort()
+                          "News & Current Events",
+                          "Other"]
 
       // For the main list, show all items but avoid duplicating the top 3
       // const topIds = new Set(topInfos.value.map(i => i._id))

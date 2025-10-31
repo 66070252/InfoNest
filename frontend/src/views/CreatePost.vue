@@ -33,6 +33,7 @@
             <option value="Society & Culture">Society & Culture</option>
             <option value="Travel & Places">Travel & Places</option>
             <option value="News & Current Events">News & Current Events</option>
+            <option value="Other">Other</option>
           </select>
         </div>
         <div class="button-wrapper">
